@@ -15,7 +15,9 @@ A **Map of Content**, or **"MOC"**, is like a navigational hub that organizes yo
 
 #### **Breaking Down an MOC Page**
 
-At its most basic level, an MOC is structured with **Sections** (indicated by `# headers`), and each section can have **Subsections** (`## Subtopics`) and even more granular **Sub-subsections** (`### Sub-subtopics`). This hierarchical structure helps you organize your notes in an intuitive way, allowing for both broad overviews and specific details to be linked and categorized.
+At its most basic level, an MOC a note like any other. It is structured with **Sections** (indicated by `# headers`), and each section can have **Subsections** (`## Subtopics`) and even more granular **Sub-subsections** (`### Sub-subtopics`). This hierarchical structure helps you organize your notes in an intuitive way, allowing for both broad overviews and specific details to be linked and categorized.
+
+The main difference is that instead of static content below each `# header`, you place a specific Dataview query which monitors your vault on the fly for any notes that might point to that specific `# header` in that specific MOC note and is instructed to list them out to you. By doing this, you are instantly updated about any notes that are pointing to that section and in doing so, you have an up to date map of your entire vault.
 
 ---
 
