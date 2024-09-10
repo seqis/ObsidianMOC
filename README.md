@@ -1,6 +1,6 @@
 # ObsidianMOC
 
-**How to Use Maps of Content (MOCs) and Dataview to Manage Your Vault in Obsidian**
+## **How to Use Maps of Content (MOCs) and Dataview to Manage Your Vault in Obsidian**
 
 ---
 #### **Introduction**
@@ -11,7 +11,7 @@ This method allows your vault to organize itself without constant manual upkeep,
 
 ### **What is a Map of Content (MOC)?**
 
-A **Map of Content**, or **MOC**, is like a navigational hub that organizes your notes around a particular topic. Think of it as a dynamic table of contents that lets you quickly access related notes under a single subject area. But there’s more to an MOC than just being a simple list of links—when combined with the **Dataview** plugin, your MOC becomes a **self-updating, dynamic index** that grows and evolves with your notes.
+A **Map of Content**, or **"MOC"**, is like a navigational hub that organizes your notes around a particular topic. Think of it as a dynamic table of contents that lets you quickly access related notes under a single subject area. But there’s more to a MOC than just being a simple list of links—when combined with the **Dataview** plugin, your MOC becomes a **self-updating, dynamic index** that grows and evolves with your notes.
 
 #### **Breaking Down an MOC Page**
 
@@ -25,18 +25,22 @@ In traditional note-taking systems, like a file and folder setup, you might crea
 
 - A **Philosophy folder** containing notes on different branches of philosophy like **Stoicism** and **Existentialism**.
 
-While this folder approach works, it can become restrictive. As you accumulate more notes, you may find that a single note belongs to more than one folder, or that certain topics are too broad or narrow to fit neatly into a rigid folder structure.
+While this folder approach works, it can become restrictive. As you accumulate more notes, or your vault starts to expand beyond its original intent, you may find that a single note belongs to more than one folder, or that certain topics are too broad or narrow to fit neatly into a rigid folder structure.
 
-**MOCs provide a flexible alternative** to this system. Instead of moving notes into multiple folders or creating complex folder hierarchies, you use MOCs to organize notes **by their content and context**. The advantage here is that a note can link to **multiple MOCs**, providing **cross-references** without having to duplicate the note or move it around manually.
+**MOCs provide a flexible alternative** to this system. Instead of moving notes into multiple folders or creating complex folder hierarchies, you use MOCs to organize notes **by their content and context**.
+
+If by chance a MOC needs to be broken up into 2 different MOC's due to its size, then only the contituent notes need to have their `[[MOC Links]]` updated to point to the new broken-out MOC.
+
+The advantage here is that a note can link to **multiple MOCs**, providing **cross-references** without having to duplicate the note or move it around manually.
 
 #### **A Basic MOC Example**
 
 Let’s say you’re building a **Philosophy MOC**. You could start with an overarching topic like **Philosophy** and then break it down into several subtopics like **Stoicism** and **Existentialism**, which are specific branches within the broader topic.
 
-Here’s how your MOC structure might look at the start:
+For example, here's how your MOC structure might look at the start:
 
 ```
-# Philosophy MOC
+Philosophy MOC (this is the title of the note)
 
 ## Stoicism
 
@@ -44,12 +48,12 @@ Here’s how your MOC structure might look at the start:
 
 ```
 
-But this is just the beginning. You can further break down each subtopic into **sub-subtopics** (i.e., more detailed areas within Stoicism or Existentialism). For example, under Stoicism, you might want to include prominent Stoic figures like **Marcus Aurelius** or core concepts like **Virtue**.
+You can further break down each subtopic into **sub-subtopics** (i.e., more detailed areas within Stoicism or Existentialism). For example, under Stoicism, you might want to include prominent Stoic figures like **Marcus Aurelius** or core concepts like **Virtue**.
 
 Expanding on the example:
 
 ```
-# Philosophy MOC
+Philosophy MOC (this is the title of the note)
 
 ## Stoicism
 ### Marcus Aurelius
@@ -57,21 +61,25 @@ Expanding on the example:
 
 ## Existentialism
 ### Jean-Paul Sartre
+### Albert Camus
+#### Sisyphus
 ### Authenticity
 
 ```
 
-Each of these sections can include Dataview queries or links that automatically pull in notes related to that specific subtopic or sub-subtopic.
+EACH of these `## Sections` or `#### Sub-Sections` in the MOC would contain their own specific Dataview queries that automatically pull in any & all notes that link out to that specific subtopic or *sub*-subtopic.
 
 ---
 
 #### **MOCs and Dynamic Content: How They Work with Dataview**
 
-A key feature that makes MOCs so powerful is their ability to remain **dynamic** with the help of the Dataview plugin. Instead of manually updating your MOCs every time you create or modify a note, Dataview queries will automatically pull in notes that reference a specific section of the MOC.
+A key feature that makes MOCs so powerful is their ability to remain **dynamic** (meaning that they update automatically, on their own) with the help of the Dataview plugin. Instead of manually updating your MOCs every time you create or modify a note, Dataview queries constantly get auto-updated as you add, modify or remove notes in your vault. The crafted Dataview queries will automatically pull in notes that reference a specific section of the MOC.
 
-For example, if you create a new note about **Marcus Aurelius**, and in that note you include a link back to the `[[Philosophy MOC#Stoicism]]` section, the note will automatically show up under the Stoicism section of your MOC, without you having to do anything extra. This turns your MOC into a **self-updating, living document**.
+For example, if you create a new note about **Marcus Aurelius**, and in that note you include a link in the note to the `[[Philosophy MOC#Stoicism]]` section, the note will automatically show up under the Stoicism section of your MOC, without you having to do anything else, no editing of the MOC is required, only a new note pointing to that section that the Dataview query is scanning for.
 
-In practice, Dataview queries might look something like this:
+This turns your MOC into a **self-updating, living document**.
+
+In practice, Dataview queries might look something like this for just the `## Stoicism` section:
 
 ```
 Philosophy MOC (this is the note title)
@@ -84,17 +92,25 @@ sort file.mtime desc
 
 ```
 
-Marcus Aurelius
+... for the Marcus Aurelius section
 ```
+Philosophy MOC (this is the note title)
+
+## Marcus Aurelius
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Marcus Aurelius]])
 sort file.mtime desc
 
 ```
 
-Existentialism
+... for the Existentialism section
 
 ```
+Philosophy MOC (this is the note title)
+
+## Existentialism
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
@@ -105,36 +121,36 @@ In this setup:
 
 - **## Stoicism**: Will display all notes linking to the Stoicism section.
 - **### Marcus Aurelius**: Will further refine the results to only show notes specifically about Marcus Aurelius.
-- The same logic applies for Existentialism, Jean-Paul Sartre, and other sub-subtopics.
+- The same logic applies for Existentialism, and other sub-subtopics.
 
 ---
 
 #### **Flexibility and Scalability with MOCs**
 
-Because MOCs aren’t restricted by a rigid folder structure, they allow your vault to grow as much as needed, while still keeping everything organized. You can create as many subtopics and sub-subtopics as you need, and because each note can link to multiple MOCs, you won’t ever lose track of where a note belongs.
+Because MOCs aren’t restricted by a rigid folder structure, they allow your vault to grow as much as needed, while still keeping everything organized.  It's the MOC's themselves that get new `## Sub-Sections` if your vault needs to expand, rather than creating static new sub-folders in a rigid structure.
 
-**Example**: If you have a note titled “Marcus Aurelius - Meditations,” this note can easily link to both the **Stoicism** and **Philosophy** MOCs, ensuring it shows up in both places without duplication. Likewise, if your note discusses **Virtue** as a core Stoic concept, you can link it to both `[[Stoicism#Virtue]]` and `[[Philosophy MOC]]`.
+You can create as many subtopics and sub-subtopics as you need, and because each note can link to multiple MOCs, you won’t ever lose track of where a note belongs.
+
+**Example**: If you have a note titled “Marcus Aurelius - Meditations,” this note can easily link to both the **Stoicism** and **Philosophy** MOCs, ensuring it shows up in both places without duplication. Likewise, if your note discusses **Virtue** as a core Stoic concept, you can link it to both `[[Stoicism#Virtue]]` and `[[Philosophy MOC]]` all from within the same note, since they're just links.
+
+**MOCs are more flexible** than traditional folders because they allow notes to be organized by content rather than by arbitrary file hierarchies.
+
+Using **# Sections**, **## Subtopics**, and **### Sub-subtopics**, you can create a detailed and intuitive structure to organize notes by specific topics and their subcategories.
+
+When combined with Dataview, MOCs automatically update themselves, meaning you never need to manually add or rearrange notes within your MOCs as your vault grows.
+
+MOCs also allow for **cross-referencing**, meaning the same note can appear in multiple MOCs, without the need to copy or duplicate the note.
+
+MOCs give you the freedom to organize your notes in a way that reflects the **content** and **context** of your information, while remaining scalable and dynamic as your vault expands.
 
 ---
 
-#### **Summary**
-
-- **MOCs are more flexible** than traditional folders because they allow notes to be organized by content rather than by arbitrary file hierarchies.
-- Using **# Sections**, **## Subtopics**, and **### Sub-subtopics**, you can create a detailed and intuitive structure to organize notes by specific topics and their subcategories.
-- When combined with Dataview, MOCs automatically update themselves, meaning you never need to manually add or rearrange notes within your MOCs as your vault grows.
-- MOCs also allow for **cross-referencing**, meaning the same note can appear in multiple MOCs, without the need to copy or duplicate the note.
-
-In short, MOCs give you the freedom to organize your notes in a way that reflects the **content** and **context** of your information, while remaining scalable and dynamic as your vault expands.
-
-
----
-
-### **Setting Up Your Vault: The Folder Structure**
+### **Setting Up Your Vault: The MOC Folder Structure**
 
 Before diving into MOCs and Dataview, let’s start with your vault's overall structure. A simple, minimalist 3-folder structure is all you need:
 
 1. **MapsOfContent** – This is where all your MOCs will live. Think of this as the central hub of your vault.
-2. **Notes** – All your other notes go here, regardless of topic. The beauty of this system is that notes don’t need to be filed into various subfolders.
+2. **Notes** – ALL your other notes go here, regardless of topic. The beauty of this system is that notes don’t need to be filed into various subfolders or moved around or copied.
 3. **Templates** – This folder holds templates you may use to ensure consistency across your notes.
 
 With this structure, there’s no need to constantly reorganize notes into new folders as your vault grows. Everything will be automatically managed through MOCs and Dataview, which we’ll explain step-by-step.
@@ -147,7 +163,7 @@ Let’s start by creating a basic MOC to see how it works.
 
 1. **Create a New Note** In Obsidian, create a new note and give it a relevant title, such as `Philosophy MOC`. This will be the filename for the note, which is key to making sure everything stays linked and accessible.
     
-2. **Structure Your MOC with Sections** Your MOC should include various sections that cover subtopics. For example, if your MOC is about philosophy, you might include sections like “Stoicism,” “Existentialism,” and “Ethics.”
+2. **Structure Your MOC with Sections** and if you like, `### Sub-sections`. Your MOC should include enough sections and sub-sections to cover a topic sufficiently. You can always add more later. For example, if your MOC is about philosophy, you might include sections like “Stoicism,” “Existentialism,” and “Ethics.”
     
 
 Here’s what the structure might look like:
@@ -162,7 +178,7 @@ Philosophy MOC (this is the note title)
 ## Ethics
 ```
 
-Each `# Section` or `## Subsection` serves as a container for related notes. As your vault grows, these sections will populate automatically with relevant notes, thanks to the Dataview plugin.
+Each `# Section` or `## Subsection` serves as a "container" for its associated Dataview query for notes that will be pointing to that section. As your vault grows, these sections will populate automatically with relevant notes, thanks to the Dataview plugin.
 
 ---
 
@@ -177,6 +193,10 @@ The Dataview plugin allows you to create dynamic lists that update in real-time 
 Now let’s see how Dataview turns your MOC into a dynamic content hub. Under each section header, you’ll add a Dataview query to pull in related notes. For example, to automatically display notes related to Stoicism, you can use this query:
 
 ```
+Philosophy MOC (this is the note title)
+
+## Stoicism (this is your plaintext section header)
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
@@ -193,6 +213,10 @@ The result will be a list of notes related to Stoicism, which will appear under 
 Repeat this process for the other sections, such as Existentialism and Ethics, by changing the query to match each section name. For example:
 
 ```
+Philosophy MOC (this is the note title)
+
+## Existentialism (this is your plaintext section header)
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
@@ -203,16 +227,14 @@ Now, your MOC will dynamically pull in and display all relevant notes.
 
 ---
 
-### **Linking Notes to MOCs**
+### **The Basic Note Template & Linking Notes to MOCs**
 
 In order for your notes to appear under the correct section in your MOC, you need to make sure that they link back to that section. This can be done easily by following a consistent note template.
-
-#### **The Basic Note Template**
 
 Each of your notes should include a link back to the relevant section of the MOC at the top. Here’s a template that you can use to ensure every note is connected to the right MOC:
 
 ```
-#### **MapOfContent:** [[Philosophy MOC#Stoicism]]
+#### **MapOfContent:** [[Philosophy MOC#Stoicism]] - [[Optional#Second-MOC-Link]] - [[More MOC Links as needed]]
 ---
 Your note content goes here.
 
@@ -223,31 +245,25 @@ Your note content goes here.
 
 ```
 
-By including the link `[[Philosophy MOC#Stoicism]]` in the `MapOfContent` field, you ensure that the note is categorized under the Stoicism section in your MOC. The Dataview query will pick up this link and display the note in the MOC automatically.
+By including the link `[[Philosophy MOC#Stoicism]]` in the `MapOfContent` field, you ensure that the note is categorized under the Stoicism section in your MOC.
+
+The Dataview query will pick up this link and display the note in the MOC automatically. Other Dataview queries would pick up on the secondary or 3rd MOC links (if you created them) accordingly.
 
 ---
 
-### **Managing Complex Subjects**
+### **Managing Complex Subjects & Scaling Out your MOC Structure:**
 
-As your vault grows, certain MOCs may become too large to manage in a single page. When this happens, you can break out specific sections into their own dedicated MOCs. This ensures that your system remains scalable and organized, even as your vault expands.
-
-#### **Scaling Out a Complex Topic: Promoting Sections into Their Own MOC**
+As your vault grows, certain MOCs may become too large to manage in a single page and grow to be very long. When this happens, you can break out specific sections into their own dedicated MOCs. This ensures that your system remains scalable and organized, even as your vault expands.
 
 Over time, as your vault grows, certain sections within a broader MOC can accumulate too many notes to be efficiently managed. When this happens, it’s often necessary to “promote” these sections into their own dedicated MOCs to maintain scalability and organization. This process involves not just creating a new MOC, but also **modifying links within the individual notes** so that they point to the new MOC.
 
 Let’s walk through this process step-by-step using the **Technology MOC** example, which includes sections like **Coding**, **Linux**, and **Software Development**.
-
----
-
-#### **Step-by-Step Guide to Scaling Out a Topic to Its Own MOC**
 
 ##### **1. Identifying When a Section Needs Its Own MOC**
 
 As you add more notes to your vault, you might find that certain sections within a broader MOC, such as “Coding” within a **Technology MOC**, begin to feel too crowded. Maybe the number of individual notes about different programming languages or projects is growing, making it harder to navigate and maintain the original MOC.
 
 This is the moment to consider **scaling out** the section into a standalone MOC.
-
----
 
 ##### **2. Creating a New MOC for the Promoted Section**
 
@@ -268,7 +284,7 @@ Coding MOC (this is the note title)
 
 This new MOC will contain the same subtopics that were originally in the **Technology MOC**, but now they are organized in a separate, dedicated space.
 
----
+Specific Dataview queries for each of these will go under each ``## Section`.
 
 ##### **3. Transferring the Sections**
 
@@ -284,32 +300,18 @@ Next, transfer the **subsections** related to coding from the **Technology MOC**
 
 ```
 
-You’ll move these sections into the new **Coding MOC**. After this step, your **Technology MOC** will no longer include the coding sections, but the new **Coding MOC** will.
-
----
+You’ll move these sections into the new **Coding MOC**. After this step, your **Technology MOC** will no longer include the coding sections, but the **new** **Coding MOC** will.
 
 ##### **4. Updating the Dataview Queries in Both MOCs**
 
-Once you’ve moved the sections to the new MOC, it’s time to update the **Dataview queries** in both the original and the new MOCs to ensure that notes continue to be dynamically linked and displayed in the correct MOCs.
-
-###### **In the Technology MOC**:
-
-Modify the Dataview query that originally pulled in all “Coding” notes, so that it now links to the new **Coding MOC**:
-
-```
-list from ""
-where contains(file.outlinks, [[Coding MOC]])
-sort file.mtime desc
-
-```
-
-This updated query will pull in any note that links to the **Coding MOC**, allowing the **Technology MOC** to maintain access to coding-related content, but without displaying the details directly.
+Once you’ve moved the sections to the new MOC, it’s time to update the **Dataview queries** in that will now populate in the new MOCs to ensure that notes continue to be dynamically linked and displayed in the correct MOCs.
 
 ###### **In the Coding MOC**:
 
 Add Dataview queries to the **Coding MOC** that pull in notes for each subsection (e.g., Python, Bash, JavaScript). For example, under “Python,” you’d use:
 
 ```
+```dataview
 list from ""
 where contains(file.outlinks, [[Coding MOC#Python]])
 sort file.mtime desc
@@ -322,7 +324,11 @@ This ensures that all your Python-related notes are displayed under the “Pytho
 
 ##### **5. Updating Individual Notes with New MOC Links**
 
-Here’s a critical step that ensures your MOC structure remains effective and functional: **updating the individual notes** themselves. When you promote a section into its own MOC, all the notes that previously linked to the old section in the **Technology MOC** (e.g., `[[Technology MOC#Coding]]`) must now be updated to point to the appropriate section in the **Coding MOC**.
+***Here’s a critical step that ensures your MOC structure remains effective and functional: updating the individual notes themselves.*** 
+
+When you promote a section into its own MOC, all the notes that previously linked to the old section in the **Technology MOC** (e.g., `[[Technology MOC#Coding]]`) must now be updated to point to the appropriate section in the **Coding MOC**.
+
+This will be the only labor-intensive part required if you have a lot of notes you're trying to break off to point to a new MOC.
 
 ###### **How to Update Your Notes:**
 
@@ -342,6 +348,8 @@ You will need to update it to:
 
 This ensures that the note is now properly categorized under the **Coding MOC** and is pulled into the relevant section of that MOC by the Dataview queries.
 
+You could also of course write a Python script (if you have such skills) do to this for all notes in your vault in 1 shot, if you so choose.
+
 ---
 
 ##### **6. Ensuring Scalability as You Continue to Grow**
@@ -350,27 +358,26 @@ This process of promoting sections into their own MOCs can be repeated as needed
 
 Each time you promote a section into its own MOC, it’s important to:
 
-1. **Transfer the relevant sections** from the original MOC to the new MOC.
-2. **Update the Dataview queries** in both MOCs to point to the right sections.
-3. **Go into each individual note** and update the links in the **MapOfContent** section to reflect the new MOC.
+1. **Transfer the relevant ``# sections``** from the original MOC to the new MOC.
+2. **Remove the legacy sections from the original MOC** and transplant it over to your new MOC.
+3. **Update the Dataview queries** in the new MOC to point to the right sections under their new MOC header.
+4. **Go into each individual note** and update the links in the **MapOfContent** section to reflect the new MOC.
 
 This ensures that your MOCs remain clean, scalable, and interconnected.
 
 ---
 
-#### **Why This Process is Essential for Scalability**
+### **Why This Process is Essential for Scalability**
 
 The reason it’s so important to update the links in the individual notes is because MOCs work by dynamically pulling in notes based on those links. If a note still points to `[[Technology MOC#Coding]]`, but the coding section has been moved to the **Coding MOC**, that note will no longer appear in the correct place. By taking the time to update each note’s link, you ensure that it remains correctly categorized and displayed.
 
 Additionally, this approach **modularizes your vault**, so no single MOC becomes too large or difficult to manage. By scaling out sections into their own MOCs, you keep everything organized without sacrificing the ability to easily find and cross-reference your notes.
 
----
-
 #### **Summary of the Scaling-Out Process**
 
 1. **Create a New MOC** for the promoted section (e.g., `Coding MOC`).
 2. **Transfer the Sections** from the original MOC (e.g., `Technology MOC`) to the new MOC.
-3. **Update the Dataview Queries** in both MOCs to reflect the new structure.
+3. **Update the Dataview Queries** in the new MOC to reflect the new structure.
 4. **Modify the MOC Links** in each individual note to ensure they point to the correct MOC (e.g., `[[Coding MOC#Python]]` instead of `[[Technology MOC#Coding]]`).
 5. **Repeat** this process as needed for other growing sections, ensuring that your vault remains scalable and easy to navigate.
 
@@ -388,14 +395,11 @@ One of the main advantages of this system is its scalability. Unlike traditional
     
 3. **Scalability**: Whether you have 50 notes or 5,000 notes, this system can handle it. As certain sections of your MOCs become more populated, you can simply split them into their own dedicated MOCs without disrupting the rest of the system.
     
-
 ---
 
-### **Final Thoughts: Why MOCs with Dataview Are Superior for Vault Management**
+### **Why MOCs with Dataview Are Superior for Vault Management**
 
 Combining **Maps of Content (MOCs)** with the **Dataview** plugin transforms your Obsidian vault into a **self-organizing knowledge hub**. What makes this approach so powerful is its flexibility and scalability, allowing you to manage your vault efficiently—whether it contains a handful of notes or thousands of them. Let’s delve deeper into why this method is better, less work-intensive, and more efficient compared to other popular approaches for note management.
-
----
 
 #### **1. Minimal Manual Upkeep: Let the System Work for You**
 
@@ -407,8 +411,6 @@ One of the standout advantages of using MOCs with Dataview is the **minimal manu
 
 In contrast, the **MOC + Dataview** system automates much of this overhead. With a single link to an MOC section (e.g., `[[Philosophy MOC#Stoicism]]`), your notes are dynamically categorized and displayed. Once the Dataview queries are in place, **they automatically pull in and update notes**, saving you from having to manually organize your notes into folders or manually curate index pages. This eliminates the constant reorganization that comes with other methods, allowing you to **focus on content creation** rather than content management.
 
----
-
 #### **2. Infinite Scalability: No Need for Folder Creep**
 
 In systems that rely on rigid folder structures, as your vault grows, so does the complexity of your folders. Over time, you find yourself endlessly creating new subfolders, trying to fit notes into categories. This phenomenon is often referred to as **"folder creep,"** where the number of folders becomes unmanageable, and finding the right folder for a note becomes more cumbersome than productive.
@@ -416,8 +418,6 @@ In systems that rely on rigid folder structures, as your vault grows, so does th
 With the MOC + Dataview system, there is no need to create endless folders. **MOCs grow and evolve** with your vault, allowing you to dynamically organize content by **context and subject matter**, not by arbitrary file location. When a section within a MOC becomes too large (e.g., **Coding** in a **Technology MOC**), you simply promote it into its own MOC, as we discussed earlier, without changing the underlying structure of your vault.
 
 By eliminating the need for constant folder restructuring, you reduce friction in your workflow, making it easier to find and reference notes regardless of how large your vault becomes.
-
----
 
 #### **3. Flexibility: Notes Can Belong to Multiple MOCs**
 
@@ -427,22 +427,20 @@ With MOCs, however, notes can easily belong to **multiple MOCs** without duplica
 
 This flexibility also extends to the way you can **reuse and reorganize information**. If you start with a broad MOC and later find that certain sections grow too large, you can break them out into their own MOCs—promoting them as needed—without disrupting the underlying structure of your notes.
 
----
-
-#### **4. Less Work, More Efficiency**
+#### **4. Less Work, More Efficiency**: Tags aren't worth it or at best are useful in a transient way.
 
 When comparing the MOC + Dataview approach to other popular methods, such as heavy reliance on tags, folders, or manually curated indexes, the MOC system is far more efficient for several reasons:
 
-- **Tags Require Maintenance**: Systems based on tags often become cluttered and redundant. You must create and maintain a taxonomy of tags, which requires constant upkeep. Tags are useful for quick categorization, but they don’t provide the structured context that MOCs do, and they require manual intervention to create and curate. Moreover, tags don’t have the same **cross-referencing power** that MOCs provide when you use them in combination with Dataview queries.
+- **Tags Require Maintenance**: Systems based on tags often become cluttered and redundant. You must create and maintain a taxonomy of tags, which requires constant upkeep.
+	- - **Tags are useful for quick categorization (usually for a transient status of a note, such as "Pending")**, but they don’t provide the structured context that MOCs do, and they require manual intervention to create and curate.
+	- Moreover, tags don’t have the same **cross-referencing power** that MOCs provide when you use them in combination with Dataview queries.
     
 - **Folders Are Rigid**: Folder-based systems can quickly become overwhelming as the number of notes grows. Once a note is placed in a folder, it’s not easy to make that same note accessible under different contexts, which can lead to a need for duplicated notes or complex, deep folder structures. With MOCs, you eliminate this rigidity. Notes can be linked to multiple MOCs without duplication, and MOCs themselves can evolve as your vault grows.
     
-- **Manual Indexes Are Time-Consuming**: Systems that rely on manually curated indexes or manually updating links can become labor-intensive as your vault grows. Each time you create or modify a note, you must remember to update the relevant indexes or links. With Dataview, this process is **completely automated**—your MOCs update themselves every time a note is added, modified, or removed.
-    
+- **Manual Indexes Are Time-Consuming**: Systems that rely on manually created MOC's with static page links, where one has to manually update and curate every link in every MOC after any note is added or modified becomes a labor-intensive chore.
+	- With Dataview, this process is **completely automated**—your MOCs update themselves every time a note is added, modified, or removed.
 
 Ultimately, the MOC + Dataview approach reduces the cognitive load and the time spent managing your vault, making it a much more **hands-off, automated, and efficient system** compared to other methods.
-
----
 
 #### **5. Adaptability: From Simple to Complex**
 
@@ -455,21 +453,10 @@ This adaptability allows the system to remain useful whether you have 10 notes o
 
 ---
 
-### **Why MOCs with Dataview Are Better Than Other Methods**
-
-- **Less manual intervention**: With MOCs and Dataview, your vault essentially organizes itself. You don’t need to constantly reorganize folders, update tags, or manually curate indexes.
-    
-- **More scalable**: This system can scale with the size of your vault. Whether you have a handful of notes or thousands, your MOCs and Dataview queries will handle the growing complexity without needing to restructure your vault.
-    
-- **Higher flexibility**: Unlike folders, which force you to choose a single location for each note, MOCs allow your notes to belong to multiple categories at once, reflecting the content and context more accurately.
-    
-- **Adaptable for all users**: Beginners can start with a simple MOC setup and gradually introduce more complexity as their vault grows. Advanced users can create interlinked MOCs, subtopics, and cross-referenced systems without overwhelming their workflow.
-    
-
----
-
-### **In Conclusion: A Self-Evolving System for Any Vault**
+### **A Self-Evolving System for Any Vault**
 
 By combining MOCs with Dataview, you create a **living, dynamic structure** that organizes itself around your notes. This method eliminates the need for constant upkeep, allows for flexible organization, and scales effortlessly as your vault grows. Whether you’re managing a few notes for personal research or an extensive knowledge base, this system adapts to your needs, evolving alongside your growing vault.
 
 Invest the time to experiment with this structure, and you’ll quickly see how it can transform the way you manage and interact with your notes—offering a far more streamlined, flexible, and efficient approach than other methods.
+
+Hope this helps!
