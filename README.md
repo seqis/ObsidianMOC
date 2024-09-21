@@ -88,11 +88,11 @@ Philosophy MOC (this is the note title)
 
 ## Stoicism
 ```dataview
-```dataview
+``
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
-```
+``
 ```
 
 ... for the Marcus Aurelius section
