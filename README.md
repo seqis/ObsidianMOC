@@ -87,26 +87,26 @@ In practice, Dataview queries might look something like this for just the `## St
 Philosophy MOC (this is the note title)
 
 ## Stoicism
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 ... for the Marcus Aurelius section
 ```
 Philosophy MOC (this is the note title)
 
 ## Marcus Aurelius
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Marcus Aurelius]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 ... for the Existentialism section
 
@@ -114,13 +114,13 @@ sort file.mtime desc
 Philosophy MOC (this is the note title)
 
 ## Existentialism
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 In this setup:
 
@@ -201,13 +201,13 @@ Now let’s see how Dataview turns your MOC into a dynamic content hub. Under ea
 Philosophy MOC (this is the note title)
 
 ## Stoicism (this is your plaintext section header)
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 This query tells Dataview to:
 
@@ -222,13 +222,13 @@ Repeat this process for the other sections, such as Existentialism and Ethics, b
 Philosophy MOC (this is the note title)
 
 ## Existentialism (this is your plaintext section header)
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 Now, your MOC will dynamically pull in and display all relevant notes.
 
@@ -317,13 +317,13 @@ Once you’ve moved the sections to the new MOC, it’s time to update the **Dat
 
 Add Dataview queries to the **Coding MOC** that pull in notes for each subsection (e.g., Python, Bash, JavaScript). For example, under “Python,” you’d use:
 
-````
+~~~~markdown
 ```dataview
 list from ""
 where contains(file.outlinks, [[Coding MOC#Python]])
 sort file.mtime desc
 ```
-````
+~~~~
 
 This ensures that all your Python-related notes are displayed under the “Python” subsection of the **Coding MOC**. You’ll repeat this process for the other subtopics like Bash and JavaScript.
 
