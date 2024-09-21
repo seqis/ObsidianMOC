@@ -88,10 +88,11 @@ Philosophy MOC (this is the note title)
 
 ## Stoicism
 ```dataview
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
-
+```
 ```
 
 ... for the Marcus Aurelius section
@@ -100,10 +101,10 @@ Philosophy MOC (this is the note title)
 
 ## Marcus Aurelius
 ```dataview
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Marcus Aurelius]])
 sort file.mtime desc
-```
 ```
 ```
 
@@ -114,10 +115,11 @@ Philosophy MOC (this is the note title)
 
 ## Existentialism
 ```dataview
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
-
+```
 ```
 
 In this setup:
@@ -200,10 +202,11 @@ Philosophy MOC (this is the note title)
 
 ## Stoicism (this is your plaintext section header)
 ```dataview
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Stoicism]])
 sort file.mtime desc
-
+```
 ```
 
 This query tells Dataview to:
@@ -220,10 +223,11 @@ Philosophy MOC (this is the note title)
 
 ## Existentialism (this is your plaintext section header)
 ```dataview
+```dataview
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Existentialism]])
 sort file.mtime desc
-
+```
 ```
 
 Now, your MOC will dynamically pull in and display all relevant notes.
@@ -313,12 +317,12 @@ Once you’ve moved the sections to the new MOC, it’s time to update the **Dat
 
 Add Dataview queries to the **Coding MOC** that pull in notes for each subsection (e.g., Python, Bash, JavaScript). For example, under “Python,” you’d use:
 
-```
+```dataview
 ```dataview
 list from ""
 where contains(file.outlinks, [[Coding MOC#Python]])
 sort file.mtime desc
-
+```
 ```
 
 This ensures that all your Python-related notes are displayed under the “Python” subsection of the **Coding MOC**. You’ll repeat this process for the other subtopics like Bash and JavaScript.
