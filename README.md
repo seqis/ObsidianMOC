@@ -103,7 +103,8 @@ Philosophy MOC (this is the note title)
 list from ""
 where contains(file.outlinks, [[Philosophy MOC#Marcus Aurelius]])
 sort file.mtime desc
-
+```
+```
 ```
 
 ... for the Existentialism section
