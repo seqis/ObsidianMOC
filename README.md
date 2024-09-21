@@ -87,6 +87,7 @@ In practice, Dataview queries might look something like this for just the `## St
 Philosophy MOC (this is the note title)
 
 ## Stoicism
+```
 ~~~~markdown
 ```dataview
 list from ""
@@ -100,6 +101,7 @@ sort file.mtime desc
 Philosophy MOC (this is the note title)
 
 ## Marcus Aurelius
+```
 ~~~~markdown
 ```dataview
 list from ""
@@ -112,8 +114,8 @@ sort file.mtime desc
 
 ```
 Philosophy MOC (this is the note title)
-
 ## Existentialism
+```
 ~~~~markdown
 ```dataview
 list from ""
@@ -201,6 +203,7 @@ Now let’s see how Dataview turns your MOC into a dynamic content hub. Under ea
 Philosophy MOC (this is the note title)
 
 ## Stoicism (this is your plaintext section header)
+```
 ~~~~markdown
 ```dataview
 list from ""
@@ -222,6 +225,7 @@ Repeat this process for the other sections, such as Existentialism and Ethics, b
 Philosophy MOC (this is the note title)
 
 ## Existentialism (this is your plaintext section header)
+```
 ~~~~markdown
 ```dataview
 list from ""
